@@ -1,0 +1,74 @@
+body {
+    margin: 16px 160px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    max-width: 500px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+}
+
+form > div {
+    display: flex;
+    flex-flow: row nowrap;
+    line-height: 2em;
+    margin: 5px;
+}
+
+form > label {
+    color: #333;
+    width: 110px;
+    font-size: 1em;
+    line-height: 32px;
+}
+form > div > input,
+form > div > select,
+form > div > textarea {
+    flex: 1;
+    padding: 3px 5px;
+    font-size: 1em;
+    margin-left: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+form > div > input[type='checkbox'] {
+    margin-top: 7px;
+}
+
+form > div > div {
+    margin-left: 16px;
+}
+
+form > div > div > label {
+    display: block;
+}
+
+form > div > div > label > input {
+    margin-right: 3px;
+}
+
+form > div > .buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+form > div > button {
+    margin: 0 10px;
+}
+
+form > pre {
+    border: 1px solid #ccc;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}

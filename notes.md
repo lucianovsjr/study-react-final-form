@@ -1,0 +1,87 @@
+# Philosophy
+
+É o mesmo criador do redux-form.
+Essa lib contém aprendizados do ecosistema do redux-form.
+
+## Goals
+### Strongly Typed
+Fornece tipagem através do Flow e TS
+
+### Modularity
+Em simple forms o usuário não irá baixar o código todo.
+As funcionalidades complexas estão em pacotes separados.
+
+### Minimal Bundle Size
+É um wrapper mínimo em torno do núcleo de dependência zero do Final Form.
+Tudo o que React Final Form faz é saber como obter valores de formulário de SyntheticEvent
+e gerenciar assinaturas de campo para o formulário.
+
+### High Performance
+Não será necessário realizar ajustes caso o formulário comece a crescer e ficar lento.
+Cada pedaço de formulário e estado de campo pode ser escolhido à la carte para acionar
+uma nova renderização no React.
+
+Se você estiver familiarizado com o Redux no React, é um pouco como você pode usar selectors para
+especificar exatamente sobre qual "slice" de estado você deseja que seu componente seja notificado.
+
+O resultado é que você pode simplificar seu formulário para desempenho máximo.
+
+
+# API
+## <Form \/>
+Component que envolve todo o formulário.
+Gerencia o estado do formulário.
+Injeta o estado do formulário e funcionalidades. Ex: Função handleSubmit para passar ao <form> via renderProps.
+
+Na montagem, <Form /> cria uma instância de "Final Form form", assina as alterações nesse formulário
+e coloca no React Context para que os components <Field /> e <FormSpy /> possam vê-lo.
+
+Sempre que o estado do formulário inscrito mudar o <Form /> será "rerender".
+Padrão é "subscribes" em todos os estados do formulário.
+Pode ser utilizado a subscription prop para controlar a "rerender".
+
+### Provide a way to render the form
+component: React.ComponentType
+render: Function
+children: Function
+
+Se for renderizar passando um "component", ele será renderizado com React.createElement().
+
+O uso do "component" parece mais fácil, mas se estiver vindo do redux-form a melhor prática é usar "render".
+
+### Do something with handleSubmit
+handleSubmiti chama event.preventDefault() para interroper o processo de envio do navegador padrão.
+
+
+## <Field \/>
+Registra o campo com o form que o contém.
+Inscreve-se no estado do campo e injeta funções de estado e retornos de chamada, onBlur, onChange e onFocus
+por meio de uma render prop.
+
+Sempre que o estado do campo for alterado, será "rerender".
+Por padrão faz "subscribes to all field state".
+É possível controlar em qual estado de campo ele irá "subscribe".
+
+### Props
+Aceita as props de FieldProps e irá chamar a função de renderização com FieldRenderProps.
+
+Required props: name and one of component, render or children.
+
+### Basic Usage
+
+Necessário 3 coisas para usar:
+1. name prop. e.g. 'clients[0].address.street'
+2. Way to render:
+    2.1 component: 'input' or 'select' or 'textarea'
+    2.2 component: React.ComponentType
+    2.3 render: Function
+    2.3 children: Function
+
+Se for renderizar passando um "component", ele será renderizado com React.createElement().
+
+3. Connect the callbacks to your input
+
+Usando component="input" por exemplo, <Field /> fará isso.
+
+But if you are using a custom component or a render prop, you will need to do this yourself.
+Irá precisar: name, onBlur, onChange, onFocus e value.
