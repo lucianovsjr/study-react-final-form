@@ -1,32 +1,3 @@
-# Philosophy
-
-É o mesmo criador do redux-form.
-Essa lib contém aprendizados do ecosistema do redux-form.
-
-## Goals
-### Strongly Typed
-Fornece tipagem através do Flow e TS
-
-### Modularity
-Em simple forms o usuário não irá baixar o código todo.
-As funcionalidades complexas estão em pacotes separados.
-
-### Minimal Bundle Size
-É um wrapper mínimo em torno do núcleo de dependência zero do Final Form.
-Tudo o que React Final Form faz é saber como obter valores de formulário de SyntheticEvent
-e gerenciar assinaturas de campo para o formulário.
-
-### High Performance
-Não será necessário realizar ajustes caso o formulário comece a crescer e ficar lento.
-Cada pedaço de formulário e estado de campo pode ser escolhido à la carte para acionar
-uma nova renderização no React.
-
-Se você estiver familiarizado com o Redux no React, é um pouco como você pode usar selectors para
-especificar exatamente sobre qual "slice" de estado você deseja que seu componente seja notificado.
-
-O resultado é que você pode simplificar seu formulário para desempenho máximo.
-
-
 # API
 ## <Form \/>
 Component que envolve todo o formulário.
@@ -50,7 +21,7 @@ Se for renderizar passando um "component", ele será renderizado com React.creat
 O uso do "component" parece mais fácil, mas se estiver vindo do redux-form a melhor prática é usar "render".
 
 ### Do something with handleSubmit
-handleSubmiti chama event.preventDefault() para interroper o processo de envio do navegador padrão.
+handleSubmit chama event.preventDefault() para interroper o processo de envio do navegador padrão.
 
 
 ## <Field \/>
@@ -85,3 +56,29 @@ Usando component="input" por exemplo, <Field /> fará isso.
 
 But if you are using a custom component or a render prop, you will need to do this yourself.
 Irá precisar: name, onBlur, onChange, onFocus e value.
+
+## <FormSpy \/>
+Component que se inscreve no "form state" e injeta o "form state" e a instância do form "via a render prop".
+
+Sempre que ocorrer uma alteração no "form state", irá "rerender".
+By default it subscribes to all form state.
+You can control which form state it subscribes to with the subscription prop.
+
+onChange prop, can used to execute code when a particular part of form state changes.
+
+### Props
+Call the render function with FormSpyRenderProps.
+
+The only required prop is one of onChange, component, render or children.
+
+### Basic Usage
+For very advanced use cases.
+
+Utilizado quando precisa restringir o "form state" através da "subscription prop".
+
+### provide a way to render the form state
+1. component: React.ComponentTyppe
+2. render: Function
+3. children: Function
+
+Se for renderizar passando um "component", ele será renderizado com React.createElement().

@@ -1,4 +1,4 @@
-import { Form, Field, FormRenderProps, FieldRenderProps } from 'react-final-form'
+import { Form, Field, FormRenderProps, FieldRenderProps, FormSpy, FormSpyRenderProps } from 'react-final-form'
 import { TextField } from '@mui/material'
 
 import './api.css'
@@ -20,8 +20,33 @@ const MyForm = ({ handleSubmit }: FormRenderProps) => (
                 </div>
             )}
         </Field>
+        <FormSpy
+            render={MyFormSpy}
+            subscription={{ pristine: true, modified: true }}
+        />
+        <FormSpy
+            render={MyFormSpy}
+            subscription={{ values: true }}
+            onChange={(props) => {
+                console.log('FormSpy', props.values)
+            }}
+        />
     </form>
 )
+
+const MyFormSpy = ({ pristine, form, modified }: FormSpyRenderProps) => {
+    const firstNameChanged: boolean = !!modified && !!modified['firstName']
+    return (
+        <button
+            type="button"
+            // disabled={pristine}
+            disabled={!firstNameChanged}
+            onClick={() => form.reset()}
+        >
+            Reset
+        </button>
+    )
+}
 
 const Api = () => {
     const initialValues = { firstName: 'Jr' }
@@ -31,11 +56,13 @@ const Api = () => {
     }
 
     return (
-        <Form
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            render={MyForm}
-        />
+        <>
+            <Form
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                render={MyForm}
+            />
+        </>
     )
 }
 
