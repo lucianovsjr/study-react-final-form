@@ -1,4 +1,4 @@
-import { Form, Field, FormRenderProps, FieldRenderProps, FormSpy, FormSpyRenderProps } from 'react-final-form'
+import { Form, Field, FormRenderProps, FieldRenderProps, FormSpy, FormSpyRenderProps, useField, useForm, useFormState } from 'react-final-form'
 import { TextField } from '@mui/material'
 
 import './api.css'
@@ -31,11 +31,17 @@ const MyForm = ({ handleSubmit }: FormRenderProps) => (
                 console.log('FormSpy', props.values)
             }}
         />
+        <FormState />
     </form>
 )
 
 const MyFormSpy = ({ pristine, form, modified }: FormSpyRenderProps) => {
     const firstNameChanged: boolean = !!modified && !!modified['firstName']
+    const firstName = useField('firstName')
+    const formApi = useForm()
+    console.log('useField', firstName) // input and meta
+    console.log('useForm', formApi)
+    console.log('useForm', formApi.getFieldState('firstName')) // meta
     return (
         <button
             type="button"
@@ -46,6 +52,12 @@ const MyFormSpy = ({ pristine, form, modified }: FormSpyRenderProps) => {
             Reset
         </button>
     )
+}
+
+const FormState = () => {
+    const formState = useFormState({ subscription: { modified: true, values: true } })
+    console.log('useFormState', formState) // modified and values fields will be filled, others undefined
+    return null
 }
 
 const Api = () => {
