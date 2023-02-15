@@ -77,7 +77,7 @@ For very advanced use cases.
 Utilizado quando precisa restringir o "form state" através da "subscription prop".
 
 ### provide a way to render the form state
-1. component: React.ComponentTyppe
+1. component: React.ComponentType
 2. render: Function
 3. children: Function
 

@@ -25,7 +25,6 @@ const MyForm = ({ handleSubmit }: FormRenderProps) => (
             subscription={{ pristine: true, modified: true }}
         />
         <FormSpy
-            render={MyFormSpy}
             subscription={{ values: true }}
             onChange={(props) => {
                 console.log('FormSpy', props.values)
